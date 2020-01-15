@@ -1,0 +1,16 @@
+.header-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.blue {
+  background-color: blue;
+  color: white;
+}
+
+.green{
+  background-color: aquamarine;
+  color: black;
+}
