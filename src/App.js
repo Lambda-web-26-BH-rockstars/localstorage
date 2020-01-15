@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import Header from './component/Header'
+import './App.css'
 
 function App() {
+  const [localStorageButton1, setLocalStorageButton1] = useState(
+    localStorage.getItem("LocalStorageApplicationSuperCustomTagName") === undefined ?
+    "header-button blue" : 
+    localStorage.getItem("LocalStorageApplicationSuperCustomTagName")
+  )
+
+
+  useEffect(()=>{
+    localStorage.setItem("LocalStorageApplicationSuperCustomTagName", localStorageButton1)
+    console.log(localStorage.getItem("LocalStorageApplicationSuperCustomTagName"))
+  },[localStorageButton1])
+
+  const localStorageButton1ClickHandler = () => {
+    localStorageButton1 === "header-button blue" ? 
+    setLocalStorageButton1("header-button green") : 
+    setLocalStorageButton1("header-button blue")
+    
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header 
+        localStorageButton1={localStorageButton1} 
+        setLocalStorageButton1={setLocalStorageButton1} 
+        localStorageButton1ClickHandler={localStorageButton1ClickHandler}
+      />
+    </>
   );
 }
 
