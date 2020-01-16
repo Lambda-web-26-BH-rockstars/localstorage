@@ -1,20 +1,35 @@
 import React from 'react'
 
 const Header = (props) => {
-  console.log(props)
+  //console.log(props)
+
+
+
   return(
     <> 
-        <div
-          onClick={ 
-            (e) => {
-              e.preventDefault()
-              props.localStorageButton1ClickHandler()
-            }
-          }
-          className={props.localStorageButton1}
+        <form 
+          onSubmit={(e)=>{
+            e.preventDefault()
+            props.addNewItem()
+            e.target.reset()
+          }} 
         >
-          LocalStorageButton1
-        </div>
+          <label>Add an Item</label>
+          <input
+            onChange={(e)=>{
+              props.setNewItem(e.target.value)
+            }}
+            name="newItem"
+            value={props.newItem}
+          />
+          {/* <i
+            onClick={(e)=>{
+              e.preventDefault()
+              props.addNewItem()
+              
+            }} 
+            className="itemIcon fad fa-plus-square" /> */}
+        </form>
     </>
   )
 }

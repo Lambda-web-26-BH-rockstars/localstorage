@@ -2,33 +2,49 @@ import React, {useState, useEffect} from 'react';
 import Header from './component/Header'
 import './App.css'
 
+import ItemLister from './component/ItemLister'
+
 function App() {
-  const [localStorageButton1, setLocalStorageButton1] = useState(
-    localStorage.getItem("LocalStorageApplicationSuperCustomTagName") === undefined ?
-    "header-button blue" : 
-    localStorage.getItem("LocalStorageApplicationSuperCustomTagName")
+  const [newItem, setNewItem] = useState('')
+  const [itemList, setItemList] = useState(
+    localStorage.getItem("Items") === null ? [] : JSON.parse(localStorage.getItem("Items"))
   )
 
-
-  useEffect(()=>{
-    localStorage.setItem("LocalStorageApplicationSuperCustomTagName", localStorageButton1)
-    console.log(localStorage.getItem("LocalStorageApplicationSuperCustomTagName"))
-  },[localStorageButton1])
-
-  const localStorageButton1ClickHandler = () => {
-    localStorageButton1 === "header-button blue" ? 
-    setLocalStorageButton1("header-button green") : 
-    setLocalStorageButton1("header-button blue")
-    
+  const addNewItem = () => {
+    setItemList([...itemList, newItem])
   }
+
+  const deleteItem = (itemToDelete) => {
+    //console.log(itemToDelete)
+    setItemList(itemList.filter((item) => item !== itemToDelete))
+  }
+
+  const updateItem = (itemToUpdate, updatedItem) => {
+    setItemList(itemList.map((item)=> item === itemToUpdate ? updatedItem : item
+    ))
+  }
+
+  useEffect(() =>{
+    //console.log(itemList)
+    localStorage.setItem("Items", JSON.stringify(itemList))
+  },[itemList])
 
   return (
     <>
       <Header 
-        localStorageButton1={localStorageButton1} 
-        setLocalStorageButton1={setLocalStorageButton1} 
-        localStorageButton1ClickHandler={localStorageButton1ClickHandler}
+        setNewItem={setNewItem}
+        addNewItem={addNewItem}
       />
+      {itemList.map((item, index)=>{
+        return(
+          <ItemLister 
+            key={index}
+            item={item}
+            deleteItem={deleteItem}
+            updateItem={updateItem}
+          />
+        )
+      })}
     </>
   );
 }
