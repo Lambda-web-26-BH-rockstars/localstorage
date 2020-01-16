@@ -1,16 +1,20 @@
-.header-button {
+.itemRow {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  height: 1.5rem;
+  border: 1px solid lightgray;
+  padding: 2px;
+  border-radius: .5rem;
 }
 
-.blue {
-  background-color: blue;
-  color: white;
+.itemRow p, .itemIcon{
+  display: flex;
+  padding-right: .25rem;
 }
 
-.green{
-  background-color: aquamarine;
-  color: black;
+.formRowStyle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
