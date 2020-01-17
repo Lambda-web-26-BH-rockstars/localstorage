@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 
-const ItemLister = (props) => {
+const ItemLister = ({item, updateItem, deleteItem}) => {
   const [toggleEdit, setToggleEdit] = useState(false)
-  const [editBox, setEditBox] = useState(props.item)
+  const [editBox, setEditBox] = useState(item.name)
 
   return (
     <>
@@ -23,7 +23,7 @@ const ItemLister = (props) => {
                 <i 
                   onClick={(e)=>{
                     e.preventDefault()
-                    props.updateItem(props.item, editBox)
+                    updateItem({...item, name:editBox})
                     setToggleEdit(!toggleEdit)
                   }}
                   className="itemIcon fad fa-arrow-right" 
@@ -38,7 +38,7 @@ const ItemLister = (props) => {
             </>
           ) : (
             <>  
-              <p>{props.item}</p>
+              <p>{item.name}</p>
               <div className="itemRow">
                 <i 
                   onClick={() =>
@@ -53,7 +53,7 @@ const ItemLister = (props) => {
                   onClick={() =>
                     {
                       //console.log("click")
-                      props.deleteItem(props.item)
+                      deleteItem(item.id)
                     }
                   }
                   className="itemIcon fad fa-trash" 
