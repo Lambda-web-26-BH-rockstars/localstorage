@@ -1,34 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 const Header = (props) => {
-  //console.log(props)
-
-
+  const [textBoxState, setTextBoxState] = useState('')
 
   return(
     <> 
         <form 
           onSubmit={(e)=>{
             e.preventDefault()
-            props.addNewItem()
-            e.target.reset()
+            props.addNewItem(textBoxState)
+            setTextBoxState('')
           }} 
         >
           <label>Add an Item</label>
           <input
             onChange={(e)=>{
-              props.setNewItem(e.target.value)
+              setTextBoxState(e.target.value)
             }}
-            name="newItem"
-            value={props.newItem}
+            name="addNewItem"
+            value={textBoxState}
           />
-          {/* <i
-            onClick={(e)=>{
-              e.preventDefault()
-              props.addNewItem()
-              
-            }} 
-            className="itemIcon fad fa-plus-square" /> */}
+          <i 
+            onClick={()=>{
+              console.log(textBoxState)
+              props.addNewItem(textBoxState)
+              setTextBoxState('')
+            }}
+            className="itemIcon fad fa-plus-square" 
+          />
         </form>
     </>
   )

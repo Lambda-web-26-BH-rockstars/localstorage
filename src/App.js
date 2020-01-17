@@ -1,45 +1,59 @@
 import React, {useState, useEffect} from 'react';
 import Header from './component/Header'
+import {v4} from 'uuid'
 import './App.css'
 
 import ItemLister from './component/ItemLister'
 
 function App() {
-  const [newItem, setNewItem] = useState('')
+  // const [newItem, setNewItem] = useState('')
   const [itemList, setItemList] = useState(
     localStorage.getItem("Items") === null ? [] : JSON.parse(localStorage.getItem("Items"))
   )
 
-  const addNewItem = () => {
-    setItemList([...itemList, newItem])
+  const addNewItem = (addedItem) => {
+    setItemList(
+      [
+        ...itemList, 
+        {
+          item : {
+            id: v4(),
+            name : addedItem
+          }
+        }
+      ]
+    )
   }
 
   const deleteItem = (itemToDelete) => {
     //console.log(itemToDelete)
-    setItemList(itemList.filter((item) => item !== itemToDelete))
+    setItemList(itemList.filter((item) => item.item.id !== itemToDelete))
   }
 
-  const updateItem = (itemToUpdate, updatedItem) => {
-    setItemList(itemList.map((item)=> item === itemToUpdate ? updatedItem : item
-    ))
+  const updateItem = (updatedItem) => {
+    console.log(updatedItem)
+    setItemList(
+      itemList.map(
+        (item) => item.item.id === updatedItem.id ? {item : updatedItem} : item
+      )
+    )
   }
 
   useEffect(() =>{
-    //console.log(itemList)
+    console.log(itemList)
     localStorage.setItem("Items", JSON.stringify(itemList))
   },[itemList])
 
   return (
     <>
       <Header 
-        setNewItem={setNewItem}
         addNewItem={addNewItem}
       />
-      {itemList.map((item, index)=>{
+      {itemList.map((item)=>{
         return(
           <ItemLister 
-            key={index}
-            item={item}
+            key={item.item.id}
+            item={item.item}
             deleteItem={deleteItem}
             updateItem={updateItem}
           />
