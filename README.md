@@ -1,4 +1,4 @@
-#https://rockstarshoppinglist.netlify.app/
+# https://rockstarshoppinglist.netlify.app/
 
 This is a localstorage project that will save your items to your local machine, so if you have a phone, you can add an item on your phone, and see it when you are at the grocery store. it requires no login or database access as it's only state is loaded from localstorage. 
 
