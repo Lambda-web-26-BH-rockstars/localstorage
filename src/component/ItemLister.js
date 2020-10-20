@@ -20,43 +20,43 @@ const ItemLister = ({item, updateItem, deleteItem}) => {
                 />
               </div>
               <div className="itemRow">
-                <i 
+                <i
                   onClick={(e)=>{
                     e.preventDefault()
                     updateItem({...item, name:editBox})
                     setToggleEdit(!toggleEdit)
                   }}
-                  className="itemIcon fad fa-arrow-right" 
+                  className="itemIcon fas fa-arrow-right" 
                 />
-                <i 
+                <i
                   onClick={()=>{
                     setToggleEdit(false)
                   }}
-                  className="itemIcon fad fa-times"
+                  className="itemIcon fas fa-times"
                 />
               </div>
             </>
           ) : (
-            <>  
+            <>
               <p>{item.name}</p>
               <div className="itemRow">
-                <i 
+                <i
                   onClick={() =>
                     {
                       //console.log("click")
                       setToggleEdit(!toggleEdit)
                     }
                   }
-                  className="itemIcon fad fa-edit" 
+                  className="itemIcon fas fa-edit" 
                 />
-                <i 
+                <i
                   onClick={() =>
                     {
                       //console.log("click")
                       deleteItem(item.id)
                     }
                   }
-                  className="itemIcon fad fa-trash" 
+                  className="itemIcon fas fa-trash" 
                 />
               </div>
             </>

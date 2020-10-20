@@ -4,13 +4,13 @@ const Header = (props) => {
   const [textBoxState, setTextBoxState] = useState('')
 
   return(
-    <> 
-        <form 
+    <>
+        <form
           onSubmit={(e)=>{
             e.preventDefault()
             props.addNewItem(textBoxState)
             setTextBoxState('')
-          }} 
+          }}
         >
           <label>Add an Item</label>
           <input
@@ -20,13 +20,13 @@ const Header = (props) => {
             name="addNewItem"
             value={textBoxState}
           />
-          <i 
+          <i
             onClick={()=>{
               console.log(textBoxState)
               props.addNewItem(textBoxState)
               setTextBoxState('')
             }}
-            className="itemIcon fad fa-plus-square" 
+            className="itemIcon fas fa-plus-square" 
           />
         </form>
     </>
