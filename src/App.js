@@ -1,28 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import Header from './component/Header'
-import {v4} from 'uuid'
-import './App.css'
+import React from 'react';
+import Header from './component/Header';
+import {v4} from 'uuid';
+import './App.css';
 
-import ItemLister from './component/ItemLister'
+import {useLocalStorage} from './util/useLocalStorage';
+import ItemLister from './component/ItemLister';
 
 function App() {
-  // const [newItem, setNewItem] = useState('')
-  const [itemList, setItemList] = useState(
-    localStorage.getItem("Items") === null ? [] : JSON.parse(localStorage.getItem("Items"))
-  )
+  const [itemList, setItemList] = useLocalStorage("Items", [])
 
   const addNewItem = (addedItem) => {
-    setItemList(
-      [
-        ...itemList, 
-        {
-          item : {
-            id: v4(),
-            name : addedItem
-          }
-        }
-      ]
-    )
+    const newItem = {item : {id: v4(), name : addedItem}}
+    setItemList([...itemList, newItem])
   }
 
   const deleteItem = (itemToDelete) => {
@@ -39,19 +28,14 @@ function App() {
     )
   }
 
-  useEffect(() =>{
-    console.log(itemList)
-    localStorage.setItem("Items", JSON.stringify(itemList))
-  },[itemList])
-
   return (
     <>
-      <Header 
+      <Header
         addNewItem={addNewItem}
       />
       {itemList.map((item)=>{
         return(
-          <ItemLister 
+          <ItemLister
             key={item.item.id}
             item={item.item}
             deleteItem={deleteItem}
